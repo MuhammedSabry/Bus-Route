@@ -1,14 +1,31 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+
+    ext {
+        roomVersion = '2.1.0-alpha04'
+        archLifecycleVersion = '1.1.1'
+        compileSdkVersion = 28
+        daggerVersion = "2.19"
+        rxJavaVersion = "2.2.4"
+        converterGsonVersion = "2.5.0"
+        gsonVersion = '2.8.5'
+        retrofitRxAdapterVersion = "2.5.0"
+        retrofitVersion = "2.5.0"
+        rxAndroidVersion = "2.1.0"
+        rxRelayVersion = "2.1.0"
+        rxBindingVersion = "3.0.0-alpha1"
+        lifecycle_version = "2.1.0-alpha04"
+    }
+
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0'
-        
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,9 +33,19 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
         jcenter()
-        
+
+        maven {
+            url "https://jitpack.io"
+        }
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+
     }
 }
 
