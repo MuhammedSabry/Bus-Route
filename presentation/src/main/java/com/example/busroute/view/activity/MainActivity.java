@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements BusListener {
             Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(link));
             mapIntent.setPackage("com.google.android.apps.maps");
 
-            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            if (mapIntent.resolveActivity(getPackageManager()) == null) {
                 onFail("Device doesn't contain google maps");
             } else
                 startActivity(mapIntent);
