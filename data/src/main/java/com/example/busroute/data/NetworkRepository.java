@@ -1,13 +1,16 @@
 package com.example.busroute.data;
 
+import com.example.busroute.domain.BusRepository;
+import com.example.busroute.domain.model.Bus;
+import com.example.busroute.domain.model.ImageBytes;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,9 +20,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkRepository {
+public class NetworkRepository implements BusRepository {
 
-    private static final String BASE_URL = "https://graduation-server.herokuapp.com/";
+    private static final String BASE_URL = "https://image-processing-bus-services.herokuapp.com/";
     private final RetrofitService serviceApi;
 
     @Inject
@@ -32,11 +35,6 @@ public class NetworkRepository {
         httpClient.addInterceptor(logging);
         httpClient.networkInterceptors().add(new StethoInterceptor());
 
-        //10 Seconds timeout for reading , writing and connection establishing
-        httpClient.connectTimeout(10, TimeUnit.SECONDS);
-        httpClient.readTimeout(10, TimeUnit.SECONDS);
-        httpClient.writeTimeout(10, TimeUnit.SECONDS);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(httpClient.build())
@@ -45,6 +43,16 @@ public class NetworkRepository {
                 .build();
 
         serviceApi = retrofit.create(RetrofitService.class);
+    }
+
+    @Override
+    public Observable<Bus> getBusByImage(ImageBytes imageBytes) {
+        return serviceApi.getBusByImage(imageBytes);
+    }
+
+    @Override
+    public Observable<Bus> getBusByBusNumber(int busNumber) {
+        return serviceApi.getBusByNumber(busNumber);
     }
 
     private Completable completableSourceMapper(Response<ResponseBody> response) {

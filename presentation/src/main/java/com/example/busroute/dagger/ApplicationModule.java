@@ -3,6 +3,8 @@ package com.example.busroute.dagger;
 import android.content.Context;
 
 import com.example.busroute.BusRouteApplication;
+import com.example.busroute.data.NetworkRepository;
+import com.example.busroute.domain.BusRepository;
 import com.example.busroute.domain.interactor.usecase.BackgroundExecutionThread;
 import com.example.busroute.domain.interactor.usecase.PostExecutionThread;
 import com.example.busroute.executor.BackgroundThreadExecutor;
@@ -38,5 +40,11 @@ public class ApplicationModule {
     @Singleton
     PostExecutionThread getPostExecutionThread() {
         return new MainThreadExecutor();
+    }
+
+    @Provides
+    @Singleton
+    BusRepository provideBusRepository(NetworkRepository networkRepository) {
+        return networkRepository;
     }
 }
