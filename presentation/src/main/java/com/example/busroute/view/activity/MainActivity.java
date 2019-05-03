@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements BusListener {
     }
 
     public void onLoadFromImageClicked() {
+        InputTextUtils.hideSoftKeyboard(this);
         CropImage.activity()
                 .start(this);
     }
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements BusListener {
             mapIntent.setPackage("com.google.android.apps.maps");
 
             if (mapIntent.resolveActivity(getPackageManager()) == null) {
-                onFail("Device doesn't contain google maps");
+                onFail("Device doesn't contain google maps or bus link is invalid");
             } else
                 startActivity(mapIntent);
         } else
@@ -192,6 +193,8 @@ public class MainActivity extends AppCompatActivity implements BusListener {
     @Override
     public void onResult(Bus result) {
         stopLoading();
+        Toasty.success(this, "Bus loaded successfully").show();
+        InputTextUtils.hideSoftKeyboard(this);
         binding.loadedBusNumber.setText("Loaded bus number=" + result.getBusNumber());
         binding.loadedZones.setText("Loaded bus zones are=" + Arrays.toString(result.getZones()));
         if (ValidationUtil.isValidText(result.getLink()))
