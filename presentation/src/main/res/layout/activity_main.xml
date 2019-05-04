@@ -16,26 +16,61 @@
         tools:context=".view.activity.MainActivity">
 
         <TextView
-            android:id="@+id/loaded_bus_number"
+            android:id="@+id/bus_number_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:text="Loaded bus number"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/loaded_zones"
+            android:id="@+id/loaded_bus_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="No data yet"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bus_number_label" />
+
+        <TextView
+            android:id="@+id/loaded_zones_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
+            android:text="Loaded bus zones"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loaded_bus_number" />
+            app:layout_constraintTop_toBottomOf="@id/bus_number_label" />
+
+        <TextView
+            android:id="@+id/loaded_zones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="No data yet"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loaded_zones_label" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/bus_number"

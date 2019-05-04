@@ -126,13 +126,18 @@ public class MainActivity extends AppCompatActivity implements BusListener {
 
     public void onLoadByNumberClicked() {
         startLoading();
+        hideKeyboard();
         viewModel.getBus(InputTextUtils.getText(binding.busNumber), this);
     }
 
     public void onLoadFromImageClicked() {
-        InputTextUtils.hideSoftKeyboard(this);
+        hideKeyboard();
         CropImage.activity()
                 .start(this);
+    }
+
+    private void hideKeyboard() {
+        InputTextUtils.hideSoftKeyboard(this);
     }
 
     @Override
@@ -194,9 +199,18 @@ public class MainActivity extends AppCompatActivity implements BusListener {
     public void onResult(Bus result) {
         stopLoading();
         Toasty.success(this, "Bus loaded successfully").show();
-        InputTextUtils.hideSoftKeyboard(this);
-        binding.loadedBusNumber.setText("Loaded bus number=" + result.getBusNumber());
-        binding.loadedZones.setText("Loaded bus zones are=" + Arrays.toString(result.getZones()));
+        hideKeyboard();
+
+        onBusDataLoaded(result);
+    }
+
+    private void onBusDataLoaded(Bus result) {
+        binding.loadedBusNumber.setText(String.valueOf(result.getBusNumber()));
+
+        if (result.getZones() == null || result.getZones().length == 0)
+            binding.loadedZones.setText("Zones data unavailable!");
+        else
+            binding.loadedZones.setText(Arrays.toString(result.getZones()));
         if (ValidationUtil.isValidText(result.getLink()))
             enableLoadInMaps();
     }
